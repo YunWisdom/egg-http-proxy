@@ -59,6 +59,11 @@ module.exports = (options) => {
                     const baseURL = 'http://' + baseTarget.ip + ':' + baseTarget.port;
                     proxyOptions.target = baseURL;
                     console.log('baseURL: ' + baseURL);
+                    try {
+                        ctx.set('x-xmysql-target', baseURL);
+                    } catch (error) {
+                        console.log('error: ' + error);
+                    }
                 }
                 console.log('target index :' + index + ' proxy options: ' + JSON.stringify(proxyOptions));
                 c2k(proxy(context, proxyOptions))(ctx, next);
